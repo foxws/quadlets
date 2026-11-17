@@ -1,0 +1,30 @@
+[Unit]
+Description=MariaDB
+
+[Container]
+Image=docker.io/library/mariadb:11.8
+AutoUpdate=registry
+Environment=MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=1
+Volume=mariadb-data.volume:/var/lib/mysql:rw
+Network=mariadb.network
+# Other applications reach it as mariadb on the systemd-mariadb network.
+NetworkAlias=mariadb
+# Only on this machine, for tools on the host.
+PublishPort=127.0.0.1:3306:3306
+Notify=healthy
+HealthStartupCmd=healthcheck.sh --connect --innodb_initialized
+HealthStartupInterval=2s
+HealthStartupTimeout=5s
+HealthCmd=healthcheck.sh --connect --innodb_initialized
+HealthInterval=1m
+HealthTimeout=5s
+HealthRetries=3
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target

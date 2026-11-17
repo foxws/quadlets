@@ -1,0 +1,18 @@
+[Unit]
+Description=Immich machine learning container
+
+[Container]
+Image=ghcr.io/immich-app/immich-machine-learning:release
+AutoUpdate=registry
+Pod=immich.pod
+EnvironmentFile=immich.env
+Volume=immich-model-cache:/cache:rw,Z,U
+
+[Service]
+Restart=on-failure
+SuccessExitStatus=143
+RestartSec=5
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

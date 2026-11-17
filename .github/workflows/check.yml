@@ -1,0 +1,54 @@
+name: Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  manifests:
+    name: pods.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install PyYAML
+        run: python3 -m pip install --user pyyaml==6.0.2
+
+      - name: Check every application's pods.yml
+        run: python3 .github/scripts/check-manifests.py
+
+  quadlets:
+    name: Quadlet dry run
+    runs-on: ubuntu-latest
+    container:
+      image: quay.io/podman/stable:v6
+    steps:
+      - uses: actions/checkout@v7
+
+      # Runs the Quadlet generator over every directory of units, the way
+      # "podman quadlet install" would, without starting anything.
+      - name: Generate the units of every application
+        run: |
+          status=0
+
+          for directory in $(find . -name '*.container' -o -name '*.pod' -o -name '*.volume' -o -name '*.network' -o -name '*.kube' | grep -v '^./.github/' | xargs -n1 dirname | sort -u); do
+            echo "::group::${directory#./}"
+
+            if ! QUADLET_UNIT_DIRS="$directory" /usr/libexec/podman/quadlet -dryrun -user > /dev/null; then
+              echo "::error::${directory#./}: the Quadlet generator rejected its units"
+              status=1
+            fi
+
+            echo "::endgroup::"
+          done
+
+          exit $status

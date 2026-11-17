@@ -1,0 +1,16 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: immich
+label: Immich
+description: Photo and video library with face and object search
+author: francoism90
+icon: i-lucide-images
+category: Photos
+website: https://immich.app
+repository: https://github.com/immich-app/immich
+notes: Uses the GPU at /dev/dri. Photos are kept in the immich-library volume. Listens on 127.0.0.1:2283.
+
+secrets:
+  immich-db-password:
+    description: Password of the Immich database
+    generate: true

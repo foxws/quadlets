@@ -1,0 +1,15 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: homarr
+label: Homarr
+description: Dashboard for the services on your server
+author: francoism90
+icon: i-lucide-layout-dashboard
+category: Dashboard
+website: https://homarr.dev
+repository: https://github.com/homarr-labs/homarr
+notes: Reaches services on the host at 169.254.1.3, such as http://169.254.1.3:8096 for Jellyfin. Listens on 127.0.0.1:7575.
+
+secrets:
+  homarr-encryption-key:
+    description: 64 hexadecimal characters, such as the output of openssl rand -hex 32

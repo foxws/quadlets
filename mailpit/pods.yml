@@ -1,0 +1,16 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: mailpit
+label: Mailpit
+description: SMTP server that catches outgoing mail, with a web inbox
+author: foxws
+icon: i-lucide-mail
+category: Mail
+website: https://mailpit.axllent.org
+repository: https://github.com/axllent/mailpit
+notes: SMTP listens on 127.0.0.1:1025 and the inbox on 127.0.0.1:8025. Applications on the systemd-mailpit network send to mailpit:1025.
+
+sources:
+  development:
+    path: development
+    description: SMTP on 127.0.0.1:1025, inbox on 127.0.0.1:8025

@@ -1,0 +1,3 @@
+[Network]
+NetworkName=systemd-mysql
+Label=mysql

@@ -1,0 +1,11 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: vaultwarden
+label: Vaultwarden
+description: Password manager server compatible with Bitwarden
+author: francoism90
+icon: i-lucide-vault
+category: Passwords
+website: https://github.com/dani-garcia/vaultwarden
+repository: https://github.com/dani-garcia/vaultwarden
+notes: Set DOMAIN to the address you reach it on, and turn off SIGNUPS_ALLOWED once you have an account. Listens on 127.0.0.1:8222.

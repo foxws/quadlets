@@ -1,0 +1,25 @@
+[Unit]
+Description=RustFS
+
+[Container]
+Image=docker.io/rustfs/rustfs:latest
+AutoUpdate=registry
+Environment=RUSTFS_ACCESS_KEY=rustfsadmin
+Environment=RUSTFS_SECRET_KEY=rustfsadmin
+Volume=rustfs-data.volume:/data:rw
+Network=rustfs.network
+# Other applications reach it as rustfs on the systemd-rustfs network.
+NetworkAlias=rustfs
+# Only on this machine, for tools on the host.
+PublishPort=127.0.0.1:9000:9000
+PublishPort=127.0.0.1:9001:9001
+Exec=--console-enable /data
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,11 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: syncthing
+label: Syncthing
+description: Continuous file sync between your devices
+author: francoism90
+icon: i-lucide-refresh-cw
+category: Sync
+website: https://syncthing.net
+repository: https://github.com/syncthing/syncthing
+notes: Uses the host network, so devices on your LAN find it. The web UI listens on 127.0.0.1:8384.

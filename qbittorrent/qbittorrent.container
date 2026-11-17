@@ -1,0 +1,25 @@
+[Unit]
+Description=qBittorrent container
+
+[Container]
+Image=lscr.io/linuxserver/qbittorrent:latest
+AutoUpdate=registry
+UserNS=keep-id
+Environment=PUID=%U
+Environment=PGID=%G
+Environment=TZ=Etc/UTC
+Environment=WEBUI_PORT=8090
+Environment=TORRENTING_PORT=6881
+Volume=qbittorrent-config:/config:rw,Z,U
+Volume=qbittorrent-downloads.volume:/downloads:rw
+Network=host
+
+[Service]
+Restart=on-failure
+SuccessExitStatus=143
+RestartSec=5
+TimeoutStartSec=90
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,11 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: qbittorrent
+label: qBittorrent
+description: Torrent client with a web UI
+author: francoism90
+icon: i-lucide-download
+category: Downloads
+website: https://www.qbittorrent.org
+repository: https://github.com/qbittorrent/qBittorrent
+notes: Binds ~/Downloads/torrents from the host (change Device= in qbittorrent-downloads.volume; the directory must exist). Uses the host network; the web UI listens on port 8090.

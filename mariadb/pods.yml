@@ -1,0 +1,24 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: mariadb
+label: MariaDB
+description: Relational database compatible with MySQL, version 11.8 LTS
+author: foxws
+icon: i-lucide-database
+category: Databases
+website: https://mariadb.org
+repository: https://github.com/MariaDB/server
+notes: Other applications reach it as mariadb on the systemd-mariadb network. The development source also listens on 127.0.0.1:3306.
+
+sources:
+  production:
+    path: production
+    description: Root password from a secret, reachable only on its network
+  development:
+    path: development
+    description: Root without a password, listening on 127.0.0.1:3306
+
+secrets:
+  mariadb-root-password:
+    description: Password of the MariaDB root user
+    generate: true

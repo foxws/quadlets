@@ -1,0 +1,19 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: memcached
+label: Memcached
+description: In-memory key/value cache
+author: foxws
+icon: i-lucide-zap
+category: Cache
+website: https://memcached.org
+repository: https://github.com/memcached/memcached
+notes: Other applications reach it as memcached on the systemd-memcached network. The development source also listens on 127.0.0.1:11211.
+
+sources:
+  production:
+    path: production
+    description: Reachable only on its network
+  development:
+    path: development
+    description: Listening on 127.0.0.1:11211

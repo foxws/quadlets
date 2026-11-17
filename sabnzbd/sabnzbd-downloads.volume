@@ -1,0 +1,6 @@
+[Volume]
+# Where downloads go, bound from the host. Point Device= at it.
+VolumeName=sabnzbd-downloads
+Type=none
+Options=bind
+Device=%h/Downloads/usenet

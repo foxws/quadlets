@@ -1,0 +1,30 @@
+[Unit]
+Description=PostgreSQL
+
+[Container]
+Image=docker.io/library/postgres:18-alpine
+AutoUpdate=registry
+Environment=POSTGRES_HOST_AUTH_METHOD=trust
+Volume=postgres-data.volume:/var/lib/postgresql:rw
+Network=postgres.network
+# Other applications reach it as postgres on the systemd-postgres network.
+NetworkAlias=postgres
+# Only on this machine, for tools on the host.
+PublishPort=127.0.0.1:5432:5432
+Notify=healthy
+HealthStartupCmd=pg_isready -U postgres
+HealthStartupInterval=2s
+HealthStartupTimeout=5s
+HealthCmd=pg_isready -U postgres
+HealthInterval=1m
+HealthTimeout=5s
+HealthRetries=3
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target
