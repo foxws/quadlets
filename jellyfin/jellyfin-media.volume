@@ -1,0 +1,6 @@
+[Volume]
+# Your media library, bound from the host. Point Device= at it.
+VolumeName=jellyfin-media
+Type=none
+Options=bind
+Device=%h/Media

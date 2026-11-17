@@ -1,0 +1,3 @@
+[Network]
+NetworkName=systemd-postgres
+Label=postgres

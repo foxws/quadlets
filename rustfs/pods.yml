@@ -1,0 +1,27 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: rustfs
+label: RustFS
+description: Object storage compatible with S3, with a web console
+author: foxws
+icon: i-lucide-hard-drive
+category: Storage
+website: https://rustfs.com
+repository: https://github.com/rustfs/rustfs
+notes: Other applications reach it as rustfs on the systemd-rustfs network. The development source uses rustfsadmin as its keys, with the S3 API on 127.0.0.1:9000 and the console on 127.0.0.1:9001.
+
+sources:
+  production:
+    path: production
+    description: Access and secret keys from secrets
+  development:
+    path: development
+    description: Keys rustfsadmin/rustfsadmin, listening on 127.0.0.1:9000 and :9001
+
+secrets:
+  rustfs-access-key:
+    description: Access key, like AWS_ACCESS_KEY_ID
+    generate: true
+  rustfs-secret-key:
+    description: Secret key, like AWS_SECRET_ACCESS_KEY
+    generate: true

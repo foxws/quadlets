@@ -1,0 +1,24 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: meilisearch
+label: Meilisearch
+description: Fast search engine for Laravel Scout and friends
+author: foxws
+icon: i-lucide-search
+category: Search
+website: https://www.meilisearch.com
+repository: https://github.com/meilisearch/meilisearch
+notes: Other applications reach it as meilisearch on the systemd-meilisearch network. The development source also listens on 127.0.0.1:7700.
+
+sources:
+  production:
+    path: production
+    description: Production mode with a master key from a secret
+  development:
+    path: development
+    description: Development mode without a master key, listening on 127.0.0.1:7700
+
+secrets:
+  meilisearch-master-key:
+    description: Master key, at least 16 characters
+    generate: true

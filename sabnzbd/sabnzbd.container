@@ -1,0 +1,23 @@
+[Unit]
+Description=SABnzbd container
+
+[Container]
+Image=lscr.io/linuxserver/sabnzbd:latest
+AutoUpdate=registry
+Environment=PUID=%U
+Environment=PGID=%G
+Environment=TZ=Etc/UTC
+Volume=sabnzbd-config:/config:rw,Z,U
+Volume=sabnzbd-downloads.volume:/downloads:rw
+UserNS=keep-id
+Network=host
+
+[Service]
+Restart=on-failure
+SuccessExitStatus=143
+RestartSec=5
+TimeoutStartSec=90
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,20 @@
+[Unit]
+Description=Memcached
+
+[Container]
+Image=docker.io/library/memcached:1.6-alpine
+AutoUpdate=registry
+Network=memcached.network
+# Other applications reach it as memcached on the systemd-memcached network.
+NetworkAlias=memcached
+# Only on this machine, for tools on the host.
+PublishPort=127.0.0.1:11211:11211
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target

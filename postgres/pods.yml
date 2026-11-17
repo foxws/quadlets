@@ -1,0 +1,24 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: postgres
+label: PostgreSQL
+description: Relational database, version 18
+author: foxws
+icon: i-lucide-database
+category: Databases
+website: https://www.postgresql.org
+repository: https://github.com/postgres/postgres
+notes: Other applications reach it as postgres on the systemd-postgres network. The development source also listens on 127.0.0.1:5432.
+
+sources:
+  production:
+    path: production
+    description: Password from a secret, reachable only on its network
+  development:
+    path: development
+    description: No password (trust authentication), listening on 127.0.0.1:5432
+
+secrets:
+  postgres-password:
+    description: Password of the postgres superuser
+    generate: true

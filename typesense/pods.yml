@@ -1,0 +1,24 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: typesense
+label: Typesense
+description: Typo-tolerant search engine
+author: foxws
+icon: i-lucide-search
+category: Search
+website: https://typesense.org
+repository: https://github.com/typesense/typesense
+notes: Other applications reach it as typesense on the systemd-typesense network. The development source uses the API key pods and listens on 127.0.0.1:8108.
+
+sources:
+  production:
+    path: production
+    description: Admin API key from a secret
+  development:
+    path: development
+    description: API key pods, CORS on, listening on 127.0.0.1:8108
+
+secrets:
+  typesense-api-key:
+    description: Admin API key
+    generate: true

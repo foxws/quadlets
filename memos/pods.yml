@@ -1,0 +1,11 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: memos
+label: Memos
+description: Lightweight notes and microblog
+author: francoism90
+icon: i-lucide-notebook-pen
+category: Notes
+website: https://usememos.com
+repository: https://github.com/usememos/memos
+notes: Listens on 127.0.0.1:5230.

@@ -1,0 +1,19 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: redis
+label: Redis
+description: In-memory store for caches, queues and sessions
+author: foxws
+icon: i-lucide-zap
+category: Cache
+website: https://redis.io
+repository: https://github.com/redis/redis
+notes: Other applications reach it as redis on the systemd-redis network. The development source also listens on 127.0.0.1:6379.
+
+sources:
+  production:
+    path: production
+    description: Reachable only on its network
+  development:
+    path: development
+    description: Listening on 127.0.0.1:6379

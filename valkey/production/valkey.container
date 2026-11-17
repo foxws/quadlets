@@ -1,0 +1,27 @@
+[Unit]
+Description=Valkey
+
+[Container]
+Image=docker.io/valkey/valkey:9-alpine
+AutoUpdate=registry
+Volume=valkey-data.volume:/data:rw
+Network=valkey.network
+# Other applications reach it as valkey on the systemd-valkey network.
+NetworkAlias=valkey
+Notify=healthy
+HealthStartupCmd=valkey-cli ping
+HealthStartupInterval=2s
+HealthStartupTimeout=5s
+HealthCmd=valkey-cli ping
+HealthInterval=1m
+HealthTimeout=5s
+HealthRetries=3
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target

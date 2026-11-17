@@ -1,0 +1,22 @@
+[Unit]
+Description=Meilisearch
+
+[Container]
+Image=docker.io/getmeili/meilisearch:v1.42
+AutoUpdate=registry
+Environment=MEILI_ENV=development
+Volume=meilisearch-data.volume:/meili_data:rw
+Network=meilisearch.network
+# Other applications reach it as meilisearch on the systemd-meilisearch network.
+NetworkAlias=meilisearch
+# Only on this machine, for tools on the host.
+PublishPort=127.0.0.1:7700:7700
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target

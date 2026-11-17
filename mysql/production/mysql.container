@@ -1,0 +1,28 @@
+[Unit]
+Description=MySQL
+
+[Container]
+Image=docker.io/library/mysql:8.4
+AutoUpdate=registry
+Secret=mysql-root-password,type=env,target=MYSQL_ROOT_PASSWORD
+Volume=mysql-data.volume:/var/lib/mysql:rw
+Network=mysql.network
+# Other applications reach it as mysql on the systemd-mysql network.
+NetworkAlias=mysql
+Notify=healthy
+HealthStartupCmd=mysqladmin ping -h 127.0.0.1 --silent
+HealthStartupInterval=2s
+HealthStartupTimeout=5s
+HealthCmd=mysqladmin ping -h 127.0.0.1 --silent
+HealthInterval=1m
+HealthTimeout=5s
+HealthRetries=3
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target

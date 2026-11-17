@@ -1,0 +1,19 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: valkey
+label: Valkey
+description: In-memory store compatible with Redis
+author: foxws
+icon: i-lucide-zap
+category: Cache
+website: https://valkey.io
+repository: https://github.com/valkey-io/valkey
+notes: Other applications reach it as valkey on the systemd-valkey network. The development source listens on 127.0.0.1:6380, so it can run next to Redis.
+
+sources:
+  production:
+    path: production
+    description: Reachable only on its network
+  development:
+    path: development
+    description: Listening on 127.0.0.1:6380

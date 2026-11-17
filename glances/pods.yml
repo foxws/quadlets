@@ -1,0 +1,11 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: glances
+label: Glances
+description: System monitor with a web UI
+author: francoism90
+icon: i-lucide-activity
+category: Monitoring
+website: https://nicolargo.github.io/glances/
+repository: https://github.com/nicolargo/glances
+notes: Uses the host network and process namespace to see the host. The web UI listens on 127.0.0.1:61208.

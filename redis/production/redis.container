@@ -1,0 +1,27 @@
+[Unit]
+Description=Redis
+
+[Container]
+Image=docker.io/library/redis:8-alpine
+AutoUpdate=registry
+Volume=redis-data.volume:/data:rw
+Network=redis.network
+# Other applications reach it as redis on the systemd-redis network.
+NetworkAlias=redis
+Notify=healthy
+HealthStartupCmd=redis-cli ping
+HealthStartupInterval=2s
+HealthStartupTimeout=5s
+HealthCmd=redis-cli ping
+HealthInterval=1m
+HealthTimeout=5s
+HealthRetries=3
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target

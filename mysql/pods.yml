@@ -1,0 +1,24 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: mysql
+label: MySQL
+description: Relational database, version 8.4 LTS
+author: foxws
+icon: i-lucide-database
+category: Databases
+website: https://www.mysql.com
+repository: https://github.com/mysql/mysql-server
+notes: Other applications reach it as mysql on the systemd-mysql network. The development source listens on 127.0.0.1:3307, so it can run next to MariaDB.
+
+sources:
+  production:
+    path: production
+    description: Root password from a secret, reachable only on its network
+  development:
+    path: development
+    description: Root without a password, listening on 127.0.0.1:3307
+
+secrets:
+  mysql-root-password:
+    description: Password of the MySQL root user
+    generate: true

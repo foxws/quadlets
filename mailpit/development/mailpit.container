@@ -1,0 +1,31 @@
+[Unit]
+Description=Mailpit
+
+[Container]
+Image=docker.io/axllent/mailpit:latest
+AutoUpdate=registry
+Environment=MP_DATABASE=/data/mailpit.db
+Volume=mailpit-data.volume:/data:rw
+Network=mailpit.network
+# Other applications reach it as mailpit on the systemd-mailpit network.
+NetworkAlias=mailpit
+# Only on this machine, for tools on the host.
+PublishPort=127.0.0.1:1025:1025
+PublishPort=127.0.0.1:8025:8025
+Notify=healthy
+HealthStartupCmd=/mailpit readyz
+HealthStartupInterval=2s
+HealthStartupTimeout=5s
+HealthCmd=/mailpit readyz
+HealthInterval=1m
+HealthTimeout=5s
+HealthRetries=3
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target

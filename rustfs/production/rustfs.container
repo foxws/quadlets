@@ -1,0 +1,22 @@
+[Unit]
+Description=RustFS
+
+[Container]
+Image=docker.io/rustfs/rustfs:latest
+AutoUpdate=registry
+Secret=rustfs-access-key,type=env,target=RUSTFS_ACCESS_KEY
+Secret=rustfs-secret-key,type=env,target=RUSTFS_SECRET_KEY
+Volume=rustfs-data.volume:/data:rw
+Network=rustfs.network
+# Other applications reach it as rustfs on the systemd-rustfs network.
+NetworkAlias=rustfs
+Exec=--console-enable /data
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target
