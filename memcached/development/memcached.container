@@ -9,6 +9,7 @@ Network=memcached.network
 NetworkAlias=memcached
 # Only on this machine, for tools on the host.
 PublishPort=127.0.0.1:11211:11211
+StopTimeout=55
 
 [Service]
 Restart=always

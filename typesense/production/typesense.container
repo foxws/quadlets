@@ -10,6 +10,7 @@ Volume=typesense-data.volume:/data:rw
 Network=typesense.network
 # Other applications reach it as typesense on the systemd-typesense network.
 NetworkAlias=typesense
+StopTimeout=55
 
 [Service]
 Restart=always

@@ -19,6 +19,7 @@ HealthCmd=healthcheck.sh --connect --innodb_initialized
 HealthInterval=1m
 HealthTimeout=5s
 HealthRetries=3
+StopTimeout=55
 
 [Service]
 Restart=always

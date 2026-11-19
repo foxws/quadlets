@@ -11,6 +11,7 @@ Network=rustfs.network
 # Other applications reach it as rustfs on the systemd-rustfs network.
 NetworkAlias=rustfs
 Exec=--console-enable /data
+StopTimeout=55
 
 [Service]
 Restart=always

@@ -13,6 +13,7 @@ HealthCmd=pg_isready -U immich -d immich
 HealthInterval=30s
 HealthStartupCmd=pg_isready -U immich -d immich
 HealthStartupInterval=2s
+StopTimeout=25
 
 [Service]
 Restart=on-failure

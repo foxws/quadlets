@@ -9,6 +9,7 @@ Volume=vaultwarden-data:/data:rw,Z,U
 # Environment=DOMAIN=https://vault.example.com
 Environment=SIGNUPS_ALLOWED=true
 PublishPort=127.0.0.1:8222:80
+StopTimeout=25
 
 [Service]
 Restart=on-failure
