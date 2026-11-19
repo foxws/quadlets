@@ -11,6 +11,7 @@ Volume=sabnzbd-config:/config:rw,Z,U
 Volume=sabnzbd-downloads.volume:/downloads:rw
 UserNS=keep-id
 Network=host
+StopTimeout=25
 
 [Service]
 Restart=on-failure

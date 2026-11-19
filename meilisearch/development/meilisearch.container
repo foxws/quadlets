@@ -11,6 +11,7 @@ Network=meilisearch.network
 NetworkAlias=meilisearch
 # Only on this machine, for tools on the host.
 PublishPort=127.0.0.1:7700:7700
+StopTimeout=55
 
 [Service]
 Restart=always
