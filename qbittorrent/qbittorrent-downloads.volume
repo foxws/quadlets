@@ -1,6 +1,7 @@
 [Volume]
-# Where downloads go, bound from the host. Point Device= at it.
+# Where downloads go, bound from the host and relabeled (z) so other containers can share it. Point Device= at it.
 VolumeName=qbittorrent-downloads
+Label=qbittorrent
 Type=none
 Options=bind
 Device=%h/Downloads/torrents

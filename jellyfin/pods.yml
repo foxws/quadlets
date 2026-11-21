@@ -8,4 +8,9 @@ icon: i-lucide-clapperboard
 category: Media
 website: https://jellyfin.org
 repository: https://github.com/jellyfin/jellyfin
-notes: Binds ~/Media from the host (change Device= in jellyfin-media.volume; the directory must exist) and uses the GPU at /dev/dri. Listens on 127.0.0.1:8096.
+notes: Binds ~/Media from the host, relabeled for SELinux (the directory must exist; to use another, set Device= in a drop-in such as jellyfin-media.volume.d/path.conf) and uses the GPU at /dev/dri. Listens on 127.0.0.1:8096.
+
+routes:
+  app:
+    upstream: systemd-jellyfin:8096
+    description: The web app

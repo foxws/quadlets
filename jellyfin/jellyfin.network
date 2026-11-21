@@ -1,0 +1,4 @@
+[Network]
+# Lets the Pods proxy, which joins this network, reach jellyfin by name.
+NetworkName=systemd-jellyfin
+Label=jellyfin

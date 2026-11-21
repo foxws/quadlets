@@ -35,7 +35,10 @@ Check facts in the docs rather than relying on memory. Keys and defaults change 
 - `[Install]` is applied at generation. Only `WantedBy=`, `RequiredBy=`, `UpheldBy=` and `Alias=` are supported. Rootless units use `WantedBy=default.target`, because `multi-user.target` doesn't exist in the user manager.
 - Quadlet adds a network-online dependency (`podman-user-wait-network-online.service` for rootless units). `[Quadlet] DefaultDependencies=false` turns it off.
 - `.container` units get `Type=notify`. Rootless search paths are `~/.config/containers/systemd/`, `$XDG_RUNTIME_DIR/containers/systemd/` and `/etc/containers/systemd/users/[$UID]/`, searched recursively. Quadlet needs cgroup v2.
-- Drop-ins: `x.container.d/*.conf` merge in alphabetical order. The type-level `container.d/` and dash prefixes (`foo-.container.d/`) also apply.
+- Drop-ins: `x.container.d/*.conf` merge in alphabetical order, for every type (`x.volume.d/`, `x.pod.d/`, …). The type-level `container.d/` and dash prefixes (`foo-.container.d/`) also apply, and a file with the same name lower down overrides one higher up. After `podman quadlet install --application=<app>`, they go in `~/.config/containers/systemd/<app>/<unit>.d/`. Checked with the generator on Podman 6.2:
+  - A single-value key (`Device=`, `Image=`) is replaced.
+  - A repeatable Quadlet key (`Environment=`, `Volume=`, `PublishPort=`) is appended to. An empty assignment (`PublishPort=`) clears it first.
+  - `[Unit]`/`[Service]` keys pass through as extra lines, so systemd's rules apply: the last value wins for a single-value key such as `TimeoutStopSec=`, and an empty `ExecStartPre=` resets the list.
 - Templates: `x@.container` becomes `x@.service`. Enabling one through `[Install]` needs `DefaultInstance=`.
 
 ## Installing
@@ -64,12 +67,14 @@ Check facts in the docs rather than relying on memory. Keys and defaults change 
 
 ## Containers, pods and storage
 
-- `UserNS=`, `UIDMap=` and `GIDMap=` are ignored with `Pod=`, so set them on the `.pod` instead. Containers in a pod share the pod's network, so they reach each other on `127.0.0.1`, and only the `.pod` gets `PublishPort=`.
+- `UserNS=`, `UIDMap=` and `GIDMap=` are ignored with `Pod=`, so set them on the `.pod` instead. Containers in a pod share the pod's network, so they reach each other on `127.0.0.1`, and only the `.pod` gets `PublishPort=` and `Network=`. On that network, other containers resolve the pod's name (`PodName=`), not the names of the containers in it.
 - `GroupAdd=keep-groups` (crun only) keeps the host user's groups, for example for `/dev/dri` access. It can't be combined with other groups.
-- Volume options: `Z` gives a private SELinux relabel and `z` a shared one. Both write to the host, so never use them on a home directory or other shared host directory. `U` recursively chowns to the container user. A bind through a `.volume` with `Type=none`, `Options=bind` and `Device=%h/<dir>` needs the host directory to exist.
+- Volume options: `Z` gives a private SELinux relabel and `z` a shared one. Both write the label to the host files. Use `Z` on a directory one container owns and `z` on one several containers share, and never on `%h` itself or a system directory. `U` recursively chowns to the container user. A bind through a `.volume` with `Type=none`, `Options=bind` and `Device=%h/<dir>` needs the host directory to exist.
+- SELinux (enforcing on Fedora hosts) denies a container reading a home directory it hasn't relabeled, such as one labeled `cache_home_t` or `user_home_t`. `Z` or `z` on the `Volume=` line works through a bind `.volume` and labels the directory `container_file_t`, which the user can still edit. The first start relabels the whole tree, which takes a while on a large library.
 - `Secret=name,type=env,target=VAR` sets an env var, while `type=mount` (the default) creates `/run/secrets/name` with mode 0444. The secret must exist before the unit starts.
 - `.network`: changing a network's settings has no effect until it's removed by hand (`podman network rm`) and the service restarted. `NetworkDeleteOnStop=` defaults to `false`. `Internal=true` cuts off outside access.
 - Prefer real keys over `PodmanArgs=`/`GlobalArgs=`: Quadlet validates keys, but passes args through unchecked.
+- In `ExecStartPre=`/`ExecStart=`, systemd expands specifiers and variables first, so a literal `%` (as in `printf "%%s\\n"`) is written `%%` and a literal `$` (a shell variable such as `$$1`) is written `$$`.
 - Comments go on their own line, `#` or `;`. A `#` after a value becomes part of the value.
 
 ## Useful systemd specifiers
@@ -103,6 +108,6 @@ A unit missing after `daemon-reload` almost always means the generator rejected 
 - `SuccessExitStatus=` is set once.
 - Ports bind to `127.0.0.1` unless exposure is intended and noted in `pods.yml`.
 - No secret values in tracked files, and every `Secret=` is in `pods.yml`.
-- `Z`/`U` only on app-owned volumes, never on shared host directories.
+- Every host bind has `Z` (one container) or `z` (shared), never on `%h` itself. `U` only where the container user isn't yours.
 - No `UserNS=` on a container that has `Pod=`.
 - The dry run for the directory succeeds.

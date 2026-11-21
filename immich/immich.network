@@ -1,0 +1,4 @@
+[Network]
+# Lets the Pods proxy, which joins this network, reach immich by name.
+NetworkName=systemd-immich
+Label=immich

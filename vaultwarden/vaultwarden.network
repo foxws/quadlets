@@ -1,0 +1,4 @@
+[Network]
+# Lets the Pods proxy, which joins this network, reach vaultwarden by name.
+NetworkName=systemd-vaultwarden
+Label=vaultwarden

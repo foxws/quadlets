@@ -6,6 +6,15 @@ Image=docker.io/neosmemo/memos:stable
 AutoUpdate=registry
 Volume=memos-data:/var/opt/memos:rw,Z,U
 PublishPort=127.0.0.1:5230:5230
+Network=memos.network
+Notify=healthy
+HealthStartupCmd=wget -q --spider http://127.0.0.1:5230/healthz
+HealthStartupInterval=1s
+HealthStartupTimeout=5s
+HealthCmd=wget -q --spider http://127.0.0.1:5230/healthz
+HealthInterval=5m
+HealthTimeout=15s
+HealthRetries=3
 StopTimeout=25
 
 [Service]
