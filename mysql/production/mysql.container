@@ -17,6 +17,7 @@ HealthCmd=mysqladmin ping -h 127.0.0.1 --silent
 HealthInterval=1m
 HealthTimeout=5s
 HealthRetries=3
+HealthOnFailure=kill
 StopTimeout=55
 
 [Service]

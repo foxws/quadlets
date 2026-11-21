@@ -10,6 +10,7 @@ HealthCmd=valkey-cli ping
 HealthInterval=30s
 HealthStartupCmd=valkey-cli ping
 HealthStartupInterval=1s
+HealthOnFailure=kill
 
 [Service]
 Restart=on-failure

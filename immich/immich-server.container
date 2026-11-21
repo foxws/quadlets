@@ -19,6 +19,7 @@ HealthInterval=5m
 HealthStartupCmd=immich-healthcheck
 HealthStartupInterval=2s
 HealthStartupTimeout=10s
+HealthOnFailure=kill
 StopTimeout=25
 
 [Service]
