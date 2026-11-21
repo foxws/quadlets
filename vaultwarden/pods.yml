@@ -9,3 +9,8 @@ category: Passwords
 website: https://github.com/dani-garcia/vaultwarden
 repository: https://github.com/dani-garcia/vaultwarden
 notes: Set DOMAIN to the address you reach it on, and turn off SIGNUPS_ALLOWED once you have an account. Listens on 127.0.0.1:8222.
+
+routes:
+  app:
+    upstream: systemd-vaultwarden:80
+    description: The web vault

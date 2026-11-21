@@ -1,6 +1,7 @@
 [Volume]
-# Your media library, bound from the host. Point Device= at it.
+# Your media library, bound from the host and relabeled (z) so other containers can share it. Point Device= at it.
 VolumeName=jellyfin-media
+Label=jellyfin
 Type=none
 Options=bind
 Device=%h/Media

@@ -4,6 +4,7 @@ Description=Immich pod
 [Pod]
 PodName=immich
 PublishPort=127.0.0.1:2283:2283
+Network=immich.network
 
 [Install]
 WantedBy=default.target

@@ -1,3 +1,4 @@
 [Volume]
 # Uploaded photos and videos.
 VolumeName=immich-library
+Label=immich

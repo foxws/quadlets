@@ -1,0 +1,4 @@
+[Network]
+# Lets the Pods proxy, which joins this network, reach memos by name.
+NetworkName=systemd-memos
+Label=memos

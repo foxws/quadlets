@@ -9,3 +9,8 @@ category: Notes
 website: https://usememos.com
 repository: https://github.com/usememos/memos
 notes: Listens on 127.0.0.1:5230.
+
+routes:
+  app:
+    upstream: systemd-memos:5230
+    description: The web app

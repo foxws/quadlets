@@ -14,3 +14,8 @@ secrets:
   immich-db-password:
     description: Password of the Immich database
     generate: true
+
+routes:
+  app:
+    upstream: immich:2283
+    description: The web app

@@ -3,6 +3,7 @@ Description=Immich redis container
 
 [Container]
 Image=docker.io/valkey/valkey:9
+AutoUpdate=registry
 Pod=immich.pod
 Volume=immich-redis:/data:rw,Z,U
 Notify=healthy
@@ -10,11 +11,14 @@ HealthCmd=valkey-cli ping
 HealthInterval=30s
 HealthStartupCmd=valkey-cli ping
 HealthStartupInterval=1s
+StopTimeout=25
 
 [Service]
 Restart=on-failure
 SuccessExitStatus=143
 RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=30
 
 [Install]
 WantedBy=default.target
