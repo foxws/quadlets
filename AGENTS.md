@@ -12,6 +12,19 @@ Podman Quadlets for services and self-hosted applications, listed in the [Pods](
 - Every `Secret=` in a unit must be declared under `secrets:` in `pods.yml`. Use `generate: true` for random passwords.
 - When you add an application, add it to the table in `README.md`.
 
+## Pods
+
+[Pods](https://github.com/foxws/pods) is a web UI that installs these applications over SSH through lpod. It lists every root directory that has a `pods.yml` in its catalog. The units must still install with plain `podman quadlet install`, so Pods never changes them.
+
+The `pods.yml` schema belongs to Pods: [docs/manifest.md](https://github.com/foxws/pods/blob/main/docs/manifest.md), parsed by `ManifestData`. Check it there, not in `check-manifests.py`, which validates only part of it. Besides the catalog keys, `sources` and `secrets`, Pods reads:
+
+- `routes`: upstreams the Pods proxy can give a hostname, as `upstream: <container>:<port>`, where the container name is `systemd-<name>` unless `ContainerName=` says otherwise. Add one for every web UI. Hostnames never go in `pods.yml`.
+- `after_install` / `after_update`: commands Pods runs in a container from the application page, such as creating an admin.
+- `secrets` with `format: dotenv`, or `from` + `key` to read one key from a dotenv secret.
+- `ondemand` and `timers`, for applications that sleep when idle or run on a schedule.
+
+A manifest Pods can't parse is ignored with a warning, so a typo fails silently in the catalog.
+
 ## Unit conventions
 
 - Publish ports only on loopback: `PublishPort=127.0.0.1:<host>:<container>`.

@@ -31,6 +31,7 @@ Pick a host port that no other application uses. Search `PublishPort=` across th
 
 - `.container` (and `.pod`, `.volume`, `.network`, `.env` as needed), following AGENTS.md.
 - `pods.yml`: `version: 1`, `name`, `label`, `description`, `author: francoism90` for applications (`foxws` for services), an `icon` from Lucide (`i-lucide-…`), `category`, `website`, `repository`, and `notes` with the port, any host binds or devices, and first-run steps. Add `sources:` for services and `secrets:` for every `Secret=`.
+- The Pods keys from AGENTS.md: a `routes:` entry for every web UI (`upstream: systemd-<name>:<container port>`; for a `.pod`, check which name the proxy reaches before you pick one), and `after_install:` for first-run commands the image offers, such as creating an admin. Take the exact syntax from Pods' `docs/manifest.md`. Fetch it with `gh api repos/foxws/pods/contents/docs/manifest.md -H "Accept: application/vnd.github.raw"`.
 - A row in the `README.md` table.
 
 ## 4. Check
