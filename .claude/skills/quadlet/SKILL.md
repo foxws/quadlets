@@ -35,7 +35,10 @@ Check facts in the docs rather than relying on memory. Keys and defaults change 
 - `[Install]` is applied at generation. Only `WantedBy=`, `RequiredBy=`, `UpheldBy=` and `Alias=` are supported. Rootless units use `WantedBy=default.target`, because `multi-user.target` doesn't exist in the user manager.
 - Quadlet adds a network-online dependency (`podman-user-wait-network-online.service` for rootless units). `[Quadlet] DefaultDependencies=false` turns it off.
 - `.container` units get `Type=notify`. Rootless search paths are `~/.config/containers/systemd/`, `$XDG_RUNTIME_DIR/containers/systemd/` and `/etc/containers/systemd/users/[$UID]/`, searched recursively. Quadlet needs cgroup v2.
-- Drop-ins: `x.container.d/*.conf` merge in alphabetical order. The type-level `container.d/` and dash prefixes (`foo-.container.d/`) also apply.
+- Drop-ins: `x.container.d/*.conf` merge in alphabetical order, for every type (`x.volume.d/`, `x.pod.d/`, …). The type-level `container.d/` and dash prefixes (`foo-.container.d/`) also apply, and a file with the same name lower down overrides one higher up. After `podman quadlet install --application=<app>`, they go in `~/.config/containers/systemd/<app>/<unit>.d/`. Checked with the generator on Podman 6.2:
+  - A single-value key (`Device=`, `Image=`) is replaced.
+  - A repeatable Quadlet key (`Environment=`, `Volume=`, `PublishPort=`) is appended to. An empty assignment (`PublishPort=`) clears it first.
+  - `[Unit]`/`[Service]` keys pass through as extra lines, so systemd's rules apply: the last value wins for a single-value key such as `TimeoutStopSec=`, and an empty `ExecStartPre=` resets the list.
 - Templates: `x@.container` becomes `x@.service`. Enabling one through `[Install]` needs `DefaultInstance=`.
 
 ## Installing
@@ -71,7 +74,7 @@ Check facts in the docs rather than relying on memory. Keys and defaults change 
 - `Secret=name,type=env,target=VAR` sets an env var, while `type=mount` (the default) creates `/run/secrets/name` with mode 0444. The secret must exist before the unit starts.
 - `.network`: changing a network's settings has no effect until it's removed by hand (`podman network rm`) and the service restarted. `NetworkDeleteOnStop=` defaults to `false`. `Internal=true` cuts off outside access.
 - Prefer real keys over `PodmanArgs=`/`GlobalArgs=`: Quadlet validates keys, but passes args through unchecked.
-- In `ExecStartPre=`/`ExecStart=`, systemd expands specifiers first, so a literal `%` (as in `printf "%%s\\n"`) is written `%%`.
+- In `ExecStartPre=`/`ExecStart=`, systemd expands specifiers and variables first, so a literal `%` (as in `printf "%%s\\n"`) is written `%%` and a literal `$` (a shell variable such as `$$1`) is written `$$`.
 - Comments go on their own line, `#` or `;`. A `#` after a value becomes part of the value.
 
 ## Useful systemd specifiers

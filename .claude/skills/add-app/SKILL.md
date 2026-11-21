@@ -33,6 +33,7 @@ Pick a host port that no other application uses. Search `PublishPort=` across th
 - `pods.yml`: `version: 1`, `name`, `label`, `description`, `author: francoism90` for applications (`foxws` for services), an `icon` from Lucide (`i-lucide-…`), `category`, `website`, `repository`, and `notes` with the port, any host binds or devices, and first-run steps. Add `sources:` for services and `secrets:` for every `Secret=`.
 - The Pods keys from AGENTS.md: a `routes:` entry for every web UI (`upstream: systemd-<name>:<container port>`; for a `.pod`, check which name the proxy reaches before you pick one), and `after_install:` for first-run commands the image offers, such as creating an admin. A route needs a `<name>.network` the proxy can join (see AGENTS.md). Take the exact syntax from Pods' `docs/manifest.md` and `docs/proxy.md`. Fetch them with `gh api repos/foxws/pods/contents/docs/manifest.md -H "Accept: application/vnd.github.raw"` (`flatpak-spawn --host gh …` in the VS Code flatpak).
 - A row in the `README.md` table.
+- Defaults that work as installed. Anything a user may change per host (a host directory, a port, a device) goes in `notes` as a drop-in, such as `x-media.volume.d/path.conf` with `Device=`, never as "edit the unit".
 
 ## 4. Check
 

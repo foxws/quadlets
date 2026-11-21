@@ -40,8 +40,10 @@ A manifest Pods can't parse is ignored with a warning, so a typo fails silently 
 - `[Install] WantedBy=default.target` on `.container` and `.pod` files. `.volume` and `.network` files don't need one.
 - Named volumes for application state use `:rw,Z,U` when inline (`Volume=app-config:/config:rw,Z,U`). Host directories are bound through a `.volume` with `Type=none`, `Options=bind` and `Device=%h/<dir>`, and need a comment and a note in `pods.yml`.
 - SELinux denies containers access to an unlabeled home directory, so relabel every host bind: `Z` for a directory only this application uses (`Volume=glance-config.volume:/app/config:rw,Z`), `z` for one other containers may share, such as `~/Media` or `~/Downloads/<app>` (`Volume=jellyfin-media.volume:/media:rw,z`). Add `U` only when the container runs as a user other than yours; with `UserNS=keep-id` it's a slow no-op on a large tree. Never relabel `%h` itself.
-- An image that won't start without a config file can seed one from `[Service] ExecStartPre=` when it's missing, as `glance/` does. Write `%%` for a literal `%` there.
+- An image that won't start without a config file can seed one from `[Service] ExecStartPre=` when it's missing, as `glance/` does.
 - Write comments as whole lines (`# …`) above the key they explain, never after a value.
+- Ship defaults that work for most users, and leave per-host changes to drop-ins (`<unit>.d/*.conf` next to the installed unit), which survive updates. Notes in `pods.yml` point to a drop-in, never to editing the unit. lpod writes its own drop-ins (on-demand, the Pods proxy, ports), so a unit must keep working when a drop-in adds `[Unit]`, `[Container]` or `[Service]` keys.
+- In `Exec*=` lines, write `%%` for a literal `%` and `$$` for a literal `$`.
 
 ## References
 

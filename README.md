@@ -21,7 +21,7 @@ Every directory is one application, with a `pods.yml` that describes it: its lab
 | mailpit | development | SMTP 1025, inbox 8025 |
 | jellyfin, immich, vaultwarden, memos, syncthing, adguardhome, homarr, glance, glances, qbittorrent, sabnzbd | the directory itself | see their `pods.yml` |
 
-The homelab applications come from [francoism90/dotfiles](https://github.com/francoism90/dotfiles). Some bind a directory of your home folder, such as `~/Media` for Jellyfin, through a `.volume` with `Type=none`: point its `Device=` somewhere else before installing if you keep it elsewhere, and make sure the directory exists.
+The homelab applications come from [francoism90/dotfiles](https://github.com/francoism90/dotfiles). Some bind a directory of your home folder, such as `~/Media` for Jellyfin, through a `.volume` with `Type=none`. Make sure the directory exists, or point the volume somewhere else with a drop-in (see below).
 
 ## Installing
 
@@ -34,6 +34,26 @@ printf '%s' "$(openssl rand -base64 24)" | podman secret create postgres-passwor
 podman quadlet install --application=postgres postgres/production/
 systemctl --user start postgres.service
 ```
+
+## Changing an installed application
+
+Don't edit the installed units: a reinstall or update replaces them. Put your changes in a drop-in next to them instead, in `~/.config/containers/systemd/<application>/<unit>.d/*.conf`, which Quadlet merges into the unit:
+
+```ini
+# ~/.config/containers/systemd/jellyfin/jellyfin-media.volume.d/path.conf
+[Volume]
+Device=/var/mnt/media
+```
+
+```ini
+# ~/.config/containers/systemd/jellyfin/jellyfin.container.d/port.conf
+[Container]
+# An empty value clears the PublishPort= of the unit, the next adds yours.
+PublishPort=
+PublishPort=127.0.0.1:18096:8096
+```
+
+Then run `systemctl --user daemon-reload` and restart the application. A key that takes one value, such as `Device=` or `Image=`, is replaced. A key that can repeat, such as `Environment=`, `Volume=` or `PublishPort=`, is added to, unless you clear it first with an empty value. lpod writes its own drop-ins there too, such as for on-demand applications and the Pods proxy.
 
 ## Connecting from an application
 
