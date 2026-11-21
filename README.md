@@ -19,7 +19,7 @@ Every directory is one application, with a `pods.yml` that describes it: its lab
 | typesense | production, development | 8108 |
 | rustfs | production, development | 9000, console 9001 |
 | mailpit | development | SMTP 1025, inbox 8025 |
-| jellyfin, immich, vaultwarden, memos, syncthing, adguardhome, homarr, glances, qbittorrent, sabnzbd | the directory itself | see their `pods.yml` |
+| jellyfin, immich, vaultwarden, memos, syncthing, adguardhome, homarr, glance, glances, qbittorrent, sabnzbd | the directory itself | see their `pods.yml` |
 
 The homelab applications come from [francoism90/dotfiles](https://github.com/francoism90/dotfiles). Some bind a directory of your home folder, such as `~/Media` for Jellyfin, through a `.volume` with `Type=none`: point its `Device=` somewhere else before installing if you keep it elsewhere, and make sure the directory exists.
 

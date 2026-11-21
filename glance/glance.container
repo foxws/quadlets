@@ -1,0 +1,36 @@
+[Unit]
+Description=Glance container
+
+[Container]
+Image=docker.io/glanceapp/glance:latest
+AutoUpdate=registry
+# The directory with glance.yml and any files it includes.
+Volume=glance-config.volume:/app/config:rw,Z
+Volume=/etc/localtime:/etc/localtime:ro
+# Docker containers widget: enable podman.socket and uncomment
+# Volume=%t/podman/podman.sock:/var/run/docker.sock:ro
+PublishPort=127.0.0.1:8081:8080
+Network=glance.network
+Notify=healthy
+HealthStartupCmd=wget -q --spider http://127.0.0.1:8080/api/healthz
+HealthStartupInterval=1s
+HealthStartupTimeout=5s
+HealthCmd=wget -q --spider http://127.0.0.1:8080/api/healthz
+HealthInterval=5m
+HealthTimeout=15s
+HealthRetries=3
+StopTimeout=25
+
+[Service]
+# Glance won't start without a config, so the first start writes a one-page glance.yml
+# to the directory glance-config.volume binds. Edit it there; Glance reloads it on save.
+ExecStartPre=/usr/bin/mkdir -p %h/.config/glance
+ExecStartPre=/bin/sh -c 'test -f %h/.config/glance/glance.yml || printf "%%s\\n" "pages:" "  - name: Home" "    columns:" "      - size: full" "        widgets:" "          - type: calendar" > %h/.config/glance/glance.yml'
+Restart=on-failure
+SuccessExitStatus=143
+RestartSec=5
+TimeoutStartSec=300
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

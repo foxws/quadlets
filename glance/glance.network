@@ -1,0 +1,4 @@
+[Network]
+# Lets the Pods proxy, which joins this network, reach glance by name.
+NetworkName=systemd-glance
+Label=glance

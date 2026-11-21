@@ -1,0 +1,7 @@
+[Volume]
+# The directory with glance.yml, bound from the host and relabeled for SELinux. Point Device= at it.
+VolumeName=glance-config
+Label=glance
+Type=none
+Options=bind
+Device=%h/.config/glance

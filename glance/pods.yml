@@ -1,0 +1,19 @@
+# How Pods (https://github.com/foxws/pods) offers and installs this application.
+version: 1
+name: glance
+label: Glance
+description: Dashboard of feeds, widgets and service status on one page
+author: francoism90
+icon: i-lucide-newspaper
+category: Dashboard
+website: https://github.com/glanceapp/glance
+repository: https://github.com/glanceapp/glance
+notes: >-
+  Binds ~/.config/glance from the host (change Device= in glance-config.volume and the ExecStartPre= lines in
+  glance.container) and relabels it for SELinux. The first start writes a one-page glance.yml there; edit it to add
+  widgets, and set server.proxied to true behind the Pods proxy. Listens on 127.0.0.1:8081.
+
+routes:
+  app:
+    upstream: systemd-glance:8080
+    description: The dashboard
