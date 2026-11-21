@@ -8,4 +8,4 @@ icon: i-lucide-download
 category: Downloads
 website: https://www.qbittorrent.org
 repository: https://github.com/qbittorrent/qBittorrent
-notes: Binds ~/Downloads/torrents from the host (change Device= in qbittorrent-downloads.volume; the directory must exist). Uses the host network; the web UI listens on port 8090.
+notes: Binds ~/Downloads/torrents from the host, relabeled for SELinux (change Device= in qbittorrent-downloads.volume; the directory must exist). Uses the host network; the web UI listens on port 8090.

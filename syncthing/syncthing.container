@@ -1,5 +1,5 @@
 [Unit]
-Description=Syncthing Container
+Description=Syncthing container
 
 [Container]
 Image=docker.io/syncthing/syncthing:latest

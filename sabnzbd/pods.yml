@@ -8,4 +8,4 @@ icon: i-lucide-download
 category: Downloads
 website: https://sabnzbd.org
 repository: https://github.com/sabnzbd/sabnzbd
-notes: Binds ~/Downloads/usenet from the host (change Device= in sabnzbd-downloads.volume; the directory must exist). Uses the host network; the web UI listens on port 8080.
+notes: Binds ~/Downloads/usenet from the host, relabeled for SELinux (change Device= in sabnzbd-downloads.volume; the directory must exist). Uses the host network; the web UI listens on port 8080.
