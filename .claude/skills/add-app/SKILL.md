@@ -6,7 +6,7 @@ argument-hint: <name>
 
 # Add application: $ARGUMENTS
 
-Follow the conventions in AGENTS.md. They win over anything general you know about Quadlet.
+Follow the conventions in AGENTS.md. They win over anything general you know about Quadlet. Load the `quadlet` skill for how the keys behave, and run its review checklist before step 4.
 
 ## 1. Decide the shape
 

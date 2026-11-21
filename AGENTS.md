@@ -26,6 +26,10 @@ Podman Quadlets for services and self-hosted applications, listed in the [Pods](
 - Named volumes for application state use `:rw,Z,U` when inline (`Volume=app-config:/config:rw,Z,U`). Host directories are bound through a `.volume` with `Type=none`, `Options=bind` and `Device=%h/<dir>`, and need a comment and a note in `pods.yml`.
 - Write comments as whole lines (`# …`) above the key they explain, never after a value.
 
+## References
+
+Check Quadlet and systemd behaviour against the docs, not memory. The best source is the host's man pages (`podman-container.unit(5)`, `podman-systemd.unit(5)`, `systemd.service(5)`), since they match the installed version. After those come Context7 (`/websites/podman_io`, `/systemd/systemd`) and <https://docs.podman.io>. `.claude/skills/quadlet/SKILL.md` summarises the parts this repo relies on.
+
 ## Checks
 
 CI (`.github/workflows/check.yml`) runs:
