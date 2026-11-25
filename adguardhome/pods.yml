@@ -8,4 +8,4 @@ icon: i-lucide-shield-check
 category: Network
 website: https://adguard.com/adguard-home/overview.html
 repository: https://github.com/AdguardTeam/AdGuardHome
-notes: Publishes DNS on port 53, which a rootless user can only bind after lowering net.ipv4.ip_unprivileged_port_start. The web UI listens on 127.0.0.1:3000.
+notes: Publishes DNS on port 53, which a rootless user can only bind after lowering net.ipv4.ip_unprivileged_port_start. The web UI listens on 127.0.0.1:3000, so keep it on port 3000 in the setup wizard. To reach it through the Pods proxy, add a drop-in with PublishPort=<host LAN address>:3000:3000 and route to <host LAN address>:3000. It has no network of its own, which would hide the addresses of its DNS clients.
