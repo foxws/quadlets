@@ -20,7 +20,7 @@ The `pods.yml` schema belongs to Pods: [docs/manifest.md](https://github.com/fox
 
 - `routes`: upstreams the Pods proxy can give a hostname, as `upstream: <container>:<port>`, where the container name is `systemd-<name>` unless `ContainerName=` says otherwise. Add one for every web UI. Hostnames never go in `pods.yml`.
   - The proxy reaches an upstream by joining the application's networks, so a routed application needs a `<name>.network` and `Network=<name>.network` (on the `.pod` for a pod). For a pod, the upstream is its `PodName=`: the pod name resolves on the network, but the names of the containers in it don't.
-  - Applications on `Network=host` or `pasta` (glances, homarr, qbittorrent, sabnzbd, syncthing) and AdGuard Home, whose DNS clients need their real addresses, have no route. Their notes can point to a drop-in that publishes the web UI on the host's address, which the proxy routes to by IP ([Pods docs/proxy.md](https://github.com/foxws/pods/blob/main/docs/proxy.md), Upstreams).
+  - Applications on `Network=host` or `pasta` (glances, homarr, qbittorrent, sabnzbd, syncthing) and AdGuard Home, whose DNS clients need their real addresses, have no route. Their notes can point to a drop-in that publishes the web UI on the host's address, which the proxy routes to as `host.containers.internal:<port>`, never by the host's own IP ([Pods docs/proxy.md](https://github.com/foxws/pods/blob/main/docs/proxy.md), Upstreams).
 - `after_install` / `after_update`: commands Pods runs in a container from the application page, such as creating an admin.
 - `secrets` with `format: dotenv`, or `from` + `key` to read one key from a dotenv secret.
 - `ondemand` and `timers`, for applications that sleep when idle or run on a schedule.
