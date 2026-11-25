@@ -18,7 +18,7 @@ jobs:
     name: pods.yml
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install PyYAML
         run: python3 -m pip install --user pyyaml==6.0.2
@@ -32,7 +32,7 @@ jobs:
     container:
       image: quay.io/podman/stable:v6
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       # Runs the Quadlet generator over every directory of units, the way
       # "podman quadlet install" would, without starting anything.
