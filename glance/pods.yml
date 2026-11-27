@@ -3,7 +3,7 @@ version: 1
 name: glance
 label: Glance
 description: Dashboard of feeds, widgets and service status on one page
-author: francoism90
+author: foxws
 icon: i-lucide-newspaper
 category: Dashboard
 website: https://github.com/glanceapp/glance

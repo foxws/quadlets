@@ -3,7 +3,7 @@ version: 1
 name: sabnzbd
 label: SABnzbd
 description: Usenet download client with a web UI
-author: francoism90
+author: foxws
 icon: i-lucide-download
 category: Downloads
 website: https://sabnzbd.org

@@ -3,7 +3,7 @@ version: 1
 name: jellyfin
 label: Jellyfin
 description: Media server for your films, series and music
-author: francoism90
+author: foxws
 icon: i-lucide-clapperboard
 category: Media
 website: https://jellyfin.org
