@@ -3,7 +3,7 @@ version: 1
 name: homarr
 label: Homarr
 description: Dashboard for the services on your server
-author: francoism90
+author: foxws
 icon: i-lucide-layout-dashboard
 category: Dashboard
 website: https://homarr.dev

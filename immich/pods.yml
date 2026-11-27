@@ -3,7 +3,7 @@ version: 1
 name: immich
 label: Immich
 description: Photo and video library with face and object search
-author: francoism90
+author: foxws
 icon: i-lucide-images
 category: Photos
 website: https://immich.app

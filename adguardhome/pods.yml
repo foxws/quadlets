@@ -3,7 +3,7 @@ version: 1
 name: adguardhome
 label: AdGuard Home
 description: Network-wide DNS server that blocks ads and trackers
-author: francoism90
+author: foxws
 icon: i-lucide-shield-check
 category: Network
 website: https://adguard.com/adguard-home/overview.html

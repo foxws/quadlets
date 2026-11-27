@@ -3,7 +3,7 @@ version: 1
 name: memos
 label: Memos
 description: Lightweight notes and microblog
-author: francoism90
+author: foxws
 icon: i-lucide-notebook-pen
 category: Notes
 website: https://usememos.com

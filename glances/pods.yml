@@ -3,7 +3,7 @@ version: 1
 name: glances
 label: Glances
 description: System monitor with a web UI
-author: francoism90
+author: foxws
 icon: i-lucide-activity
 category: Monitoring
 website: https://nicolargo.github.io/glances/

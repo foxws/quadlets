@@ -3,7 +3,7 @@ version: 1
 name: vaultwarden
 label: Vaultwarden
 description: Password manager server compatible with Bitwarden
-author: francoism90
+author: foxws
 icon: i-lucide-vault
 category: Passwords
 website: https://github.com/dani-garcia/vaultwarden

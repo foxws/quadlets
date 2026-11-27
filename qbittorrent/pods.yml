@@ -3,7 +3,7 @@ version: 1
 name: qbittorrent
 label: qBittorrent
 description: Torrent client with a web UI
-author: francoism90
+author: foxws
 icon: i-lucide-download
 category: Downloads
 website: https://www.qbittorrent.org
