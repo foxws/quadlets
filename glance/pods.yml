@@ -13,8 +13,9 @@ notes: >-
   glance-config.volume.d/ and replace the ExecStartPre= lines in glance.container.d/ (an empty ExecStartPre= clears them). The first start writes a one-page glance.yml there; edit it to add
   widgets, and set server.proxied to true behind the Pods proxy. Listens on 127.0.0.1:8081.
   For the docker-containers widget, run systemctl --user enable --now podman.socket and add
-  Volume=%t/podman/podman.sock:/var/run/docker.sock:ro to glance.container.d/ (%t is /run/user/<uid>).
-  The socket gives Glance full control of your containers, so only enable it if you need the widget.
+  Volume=%t/podman/podman.sock:/var/run/docker.sock:ro and SecurityLabelDisable=true (SELinux blocks the
+  socket otherwise) to glance.container.d/podman-socket.local.conf. The socket gives Glance full control of
+  your containers, so only enable it if you need the widget.
 
 routes:
   app:
